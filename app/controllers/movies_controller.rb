@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-   # load_and_authorize_resource
+    load_and_authorize_resource
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
   # before_action :check_admin
 
@@ -97,6 +97,11 @@ class MoviesController < ApplicationController
       end
     end
 
+    def session_check
+        if session[:email].nil
+          redirect_to '/'
+        end
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :desc, :image_url)
