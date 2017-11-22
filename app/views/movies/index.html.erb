@@ -12,23 +12,23 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= image_tag movie.image_url, size: "100x100"%></td>
-        <td><%= movie.title %></td>
-        <td><%= movie.desc %></td>
+<tbody>
+  <% @movies.each do |movie| %>
+    <tr>
+      <td><%= image_tag movie.image_url, size: "100x100"%></td>
+      <td><%= movie.title %></td>
+      <td><%= movie.desc %></td>
 
-        <td><%= link_to 'Show', movie %></td>
-        <% if current_user && current_user.admin? %>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Show', movie %></td>
+      <% if current_user && current_user.admin? %>
+      <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
+      <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
-         <% end %>
-      </tr>
+       <% end %>
+    </tr>
 
-    <% end %>
-  </tbody>
+  <% end %>
+</tbody>
 </table>
 
 <br>

@@ -1,6 +1,28 @@
 <h1>유저 관리 페이지</h1>
-<% @users.each do |user|%>
-<%= user.email%>
-<%= user.role%>
-<%=link_to "삭제하기",admin_user_path(user.id), method: "DELETE"%><br>
-<%end%>
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th scope="col">email</th>
+    <th scope="col">등급</th>
+    <th scope="col">승급시키기</th>
+    <th scope="col">삭제하기</th>
+  </tr>
+</thead>
+  <% @users.each do |user|%>
+  <tr>
+  <td><%= user.email%></td>
+  <td><%= user.role%> </td>
+  <td>
+    <% if user.admin?%>
+    <%=link_to "[관리자 강등]",admin_user_downgrade_path(user.id),method: :put %>
+    <% else%>
+    <%=link_to "[관리자 승급]",admin_user_upgrade_path(user.id),method: :put %>
+    <%end%>
+  </td>
+  <td>
+  <%=link_to "삭제하기",admin_user_path(user.id), method: "DELETE", :data => {:confirm => 'Are you sure?'}%>
+</td>
+  <%end%>
+  </tr>
+  </tbody>
+</table>

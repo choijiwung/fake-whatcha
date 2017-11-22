@@ -4,9 +4,24 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def destroy
-    @users = User.find(params[:id])
+    @users = User.find(params[:user_id])
     @users.destroy
     redirect_to admin_users_path
   end
 
+  def upgrade
+    @users = User.find(params[:user_id])
+    @users.update(
+      role: "admin"
+    )
+    redirect_to admin_users_path
+  end
+
+  def downgrade
+    @users = User.find(params[:user_id])
+    @users.update(
+      role: "regular"
+    )
+      redirect_to admin_users_path
+  end
 end

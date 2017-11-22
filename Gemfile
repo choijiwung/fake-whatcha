@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails_12factor', group: :production
 gem 'pg', group: :production
-
+gem 'faker'
 
 # 회원인증 및 권한설정을 위한 젬
 gem 'devise'     # 회원가입 및 인증
