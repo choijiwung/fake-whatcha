@@ -1,10 +1,13 @@
 class MoviesController < ApplicationController
+   # load_and_authorize_resource
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  # before_action :check_admin
 
   # GET /movies
   # GET /movies.json
   def index
     @movies = Movie.all
+    #authorize! :read, Movie
   end
 
   # GET /movies/1
@@ -20,7 +23,7 @@ class MoviesController < ApplicationController
     #   @avg = total.to_f/ @movie.reviews.count
     # end
 
-    
+  #  authorize! :read, Movie
   end
     # @sum = 0
     # @sum = @sum + 특정 영화에 있는 모든 리뷰들을 돌면서 하나씩 더하기
@@ -31,10 +34,12 @@ class MoviesController < ApplicationController
       # GET /movies/new
   def new
     @movie = Movie.new
+  #  authorize! :create, Movie
   end
 
   # GET /movies/1/edit
   def edit
+  #  authorize!
   end
 
   # POST /movies
@@ -51,6 +56,7 @@ class MoviesController < ApplicationController
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
     end
+#    authorize!
   end
 
   # PATCH/PUT /movies/1
@@ -65,6 +71,7 @@ class MoviesController < ApplicationController
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
     end
+#    authorize!
   end
 
   # DELETE /movies/1
@@ -75,12 +82,19 @@ class MoviesController < ApplicationController
       format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
     end
+#    authorize!
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
+    end
+
+    def check_admin
+      unless current_user.admin?
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
