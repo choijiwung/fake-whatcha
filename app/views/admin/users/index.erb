@@ -1,0 +1,6 @@
+<h1>유저 관리 페이지</h1>
+<% @users.each do |user|%>
+<%= user.email%>
+<%= user.role%>
+<%=link_to "삭제하기",admin_user_path(user.id), method: "DELETE"%><br>
+<%end%>

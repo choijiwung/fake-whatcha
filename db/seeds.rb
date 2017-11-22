@@ -15,3 +15,16 @@ CSV.foreach(Rails.root.join('movie_list.csv')) do |row|
     desc: row[2]
   )
 end
+
+User.create([{
+  email: "admin@asdf.com",
+  password: "123123",
+  password_confirmation: "123123",
+  role: "admin"
+  },
+  {
+    email: "yangmin@asdf.com",
+    password: "123123",
+    password_confirmation: "123123",
+    role: "regular"
+    }])
