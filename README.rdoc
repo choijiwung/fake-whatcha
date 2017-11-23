@@ -1,28 +1,97 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+오늘한거 amazon ID 만들기
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+S3가 나중에가면 제일 싸다 
+
+
+
+fake-watcha에
+
+게시판을 만든다
+
+rails g scaffold post title content:text photo user:references
+
+새로 모델을 만들었으니
+
+rake db:migrate
+
+
+
+posts/_form
+
+에서 photo는 file_field로 변경
+
+에서 user부분 
+
+      <div class="field">
+        <%= f.hidden_field :user_id, value: current_user%>
+      </div>
+
+scaffold 할때 references를 썻기떄문
+
+
+
+아마존-- s3검색
+
+버킷만들기
+
+이름 없는걸로하고 다음다음다음
+
+폴더만들고 사진올리고
+
+
+
+gem carrierwave
+
+들어가서
+
+gem minimagick
+
+gem fog-aws
+
+
+
+config/initializers
+
+config\initializers\fog.rb 파일생성
+
+    CarrierWave.configure do |config|
+      config.fog_provider = 'fog/aws'                        # required
+      config.fog_credentials = {
+        provider:              'AWS',                        # required
+        aws_access_key_id:     'xxx',                        # required
+        aws_secret_access_key: 'yyy',                        # required
+        region:                'eu-west-1',                  # optional, defaults to 'us-east-1'
+        host:                  's3.example.com',             # optional, defaults to nil
+        endpoint:              'https://s3.example.com:8080' # optional, defaults to nil
+      }
+      config.fog_directory  = 'name_of_directory'                          # required
+      config.fog_public     = false                                        # optional, defaults to true
+      config.fog_attributes = { cache_control: "public, max-age=#{365.day.to_i}" } # optional, defaults to {}
+    end
+    
+
+아디비번 넣으면안됨
+
+절대올려도안댐
+
+
+
+vagrant 에서 cd ~
+
+
+
+환경변수바꾸기
+
+-bashrc
+
+
+
+rails g uploader photo
+
+sudo apt-get update
+
+
+
+MiniMagick
